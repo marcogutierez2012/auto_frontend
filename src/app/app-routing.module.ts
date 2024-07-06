@@ -1,15 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListComponent } from './cars/pages/list/list.component';
+import { HomePageComponent } from './cars/pages/home-page/home-page.component';
+import { AddComponent } from './cars/pages/add/add.component';
 
 const routes: Routes = [
   { path: '',
-    redirectTo: '/list',
+    component:HomePageComponent,
     pathMatch: 'full'
   },
   {
     path: 'list',
-    component: ListComponent
+    component: ListComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'add',
+    component: AddComponent,
+    pathMatch: 'full'
   }
 ];
 

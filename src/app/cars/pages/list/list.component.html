@@ -1,37 +1,124 @@
 <div class="container">
-    <div class="row">
-        <div class="col">
-            <table class="table table-striped">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>MARCA</th>
-                        <th>MODELO</th>
-                        <th>AÑO DE FABRICACIÓN</th>
-                        <th>PRECIO</th>
-                        <th>NRO ASIENTOS</th>
-                        <th>COLOR</th>
-                        <th>COMBUSTIBLE</th>
-                        <th>TRANSMISION</th>
-                        <th>PLACA</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Ford</td>
-                        <td>Mustang</td>
-                        <td>2023</td>
-                        <td>$45,000</td>
-                        <td>4</td>
-                        <td>Rojo</td>
-                        <td>Gasolina</td>
-                        <td>Automática</td>
-                        <td>ABC123</td>
-                    </tr>
-                    <!-- More rows can be added here -->
-                </tbody>
-            </table>
-        </div>
+    <mat-card>
+      <mat-card-content>
+        <h2>Lista de Autos</h2>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 custom-table">
+          <!-- Columnas de la tabla -->
+          <ng-container matColumnDef="marca">
+            <th mat-header-cell *matHeaderCellDef> Marca </th>
+            <td mat-cell *matCellDef="let car"> {{ car.brand }} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="modelo">
+            <th mat-header-cell *matHeaderCellDef> Modelo </th>
+            <td mat-cell *matCellDef="let car"> {{ car.model }} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="fechafabricacion">
+            <th mat-header-cell *matHeaderCellDef> Fecha de Fabricación </th>
+            <td mat-cell *matCellDef="let car"> {{ car.fabricationYear | date }} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="precio">
+            <th mat-header-cell *matHeaderCellDef> Precio </th>
+            <td mat-cell *matCellDef="let car"> {{ car.precio }} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="asientos">
+            <th mat-header-cell *matHeaderCellDef> Nro Asientos </th>
+            <td mat-cell *matCellDef="let car"> {{ car.numberSeats }} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="color">
+            <th mat-header-cell *matHeaderCellDef> Color </th>
+            <td mat-cell *matCellDef="let car"> {{ car.color }} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="combustible">
+            <th mat-header-cell *matHeaderCellDef> Tipo de Combustible </th>
+            <td mat-cell *matCellDef="let car"> {{ car.fuelType }} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="transmision">
+            <th mat-header-cell *matHeaderCellDef> Tipo de Transmisión </th>
+            <td mat-cell *matCellDef="let car"> {{ car.transmissionType }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="placa">
+            <th mat-header-cell *matHeaderCellDef> Placa </th>
+            <td mat-cell *matCellDef="let car"> {{ car.licensePlate }} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let car">
+              <button mat-icon-button>
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button>
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+  
+         
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </mat-card-content>
+  
+      
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </mat-card>
+  </div>
+  
+  
+  <div class="container">
+    <h2>Agregar Auto</h2>
+    <form (ngSubmit)="addCars()" class="two-column-form">
+      <div class="form-column">
+        <label for="brand">Marca</label>
+        <input type="text" id="brand" name="brand" [(ngModel)]="newCar.brand" required>
+  
+        <label for="modelo">Modelo</label>
+        <input type="text" id="modelo" name="modelo" [(ngModel)]="newCar.model" required>
+  
+        <label for="fabricacion">Año de Fabricación</label>
+        <input type="date" id="fabricacion" name="fabricacion" [(ngModel)]="newCar.fabricationYear" required>
+  
+        <label for="precio">Precio</label>
+        <input type="number" id="precio" name="precio" [(ngModel)]="newCar.price" required>
+  
+        <label for="asientos">Nro de Asientos</label>
+        <input type="number" id="asientos" name="asientos" [(ngModel)]="newCar.numberSeats" required>
+      </div>
+  
+      <div class="form-column">
+        <label for="color">Color</label>
+        <input type="text" id="color" name="color" [(ngModel)]="newCar.color" required>
+  
+        <label for="combustible">Tipo de Combustible</label>
+        <input type="text" id="combustible" name="combustible" [(ngModel)]="newCar.fuelType" required>
+  
+        <label for="transmision">Tipo de Transmisión</label>
+        <input type="text" id="transmision" name="transmision" [(ngModel)]="newCar.transmissionType" required>
+  
+        <label for="placa">Placa</label>
+        <input type="text" id="placa" name="placa" [(ngModel)]="newCar.licensePlate" required>
+      </div>
+  
+      <div class="form-footer">
+        <button type="submit">Registrar</button>
+      </div>
+    </form>
+  </div>
+  
+<!-- Modal de confirmación de eliminación -->
+<div *ngIf="confirmacionEliminacionVisible" class="confirmacion-modal">
+    <div class="confirmacion-modal-contenido">
+      <h3>Confirmar Eliminación</h3>
+    
+      <button mat-raised-button color="primary">Eliminar</button>
+      <button mat-raised-button color="warn" (click)="cancelarEliminar()">Cancelar</button>
     </div>
-</div>
+  </div>
