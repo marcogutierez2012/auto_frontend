@@ -6,6 +6,7 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition
 import { CarsService } from '../../services/cars.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateComponent } from '../update/update.component';
+import { Carid } from '../../interfaces/carid.interface';
 
 @Component({
   selector: 'cars-list',
@@ -21,22 +22,10 @@ export class ListComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
   cars: CarInterface[] = [];
-  newCar: CarInterface = {
-    brand:"",
-    model:"",
-    fabricationYear: new Date(),
-    price:0,
-    numberSeats:0,
-    color:"",
-    fuelType:"",
-    transmissionType:"",
-    licensePlate:""
-  }
 
-  // Define las posiciones horizontal y vertical para el MatSnackBar
  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
-// Variables para manejar la confirmación de eliminación
+ 
 confirmacionEliminacionVisible: boolean = false;
 cartodelete: CarInterface | null = null;
   constructor(private carService: CarsService,
@@ -52,39 +41,10 @@ cartodelete: CarInterface | null = null;
     this.carService.listCars().subscribe(
       (data: CarInterface[]) => {
         this.cars = data;
-        this.dataSource.data = this.cars; // Asigna los datos al dataSource
+        this.dataSource.data = this.cars;
       },
       error => {
         console.log('Error at charging cars:', error);
-      }
-    );
-  }
-
-  addCars(): void {
-    this.carService.addCar(this.newCar).subscribe(
-      data => {
-        console.log('Car added successfully:', data);
-        this.chargeCars();
-        this.mostrarSnackBar(data);
-        this.newCar = {
-          brand:"",
-          model:"",
-          fabricationYear: new Date(),
-          price:0,
-          numberSeats:0,
-          color:"",
-          fuelType:"",
-          transmissionType:"",
-          licensePlate:""
-        };
-      },
-      error => {
-        console.error('Error at adding car:', error);
-        let errorMessage = 'Error at adding car';
-        if (error.error && typeof error.error === 'string') {
-          errorMessage = error.error; // Asigna el mensaje de error del servidor si está disponible
-        }
-        this.mostrarSnackBar(errorMessage); // Muestra el mensaje de error en el snackbar
       }
     );
   }
@@ -115,16 +75,13 @@ cartodelete: CarInterface | null = null;
       }
     });
   }
-
-
-
-  deleteCar(id: number | undefined): void {
-    if (id !== undefined) {
-      this.carService.deleteCar(id).subscribe(
+  deleteCar(carid: Carid): void {
+    if (carid !== undefined) {
+      this.carService.deleteCar(carid).subscribe(
         response => {
           console.log('Car deleted successfully:', response);
-          this.mostrarSnackBar(response); // Muestra el mensaje del servidor
-          this.chargeCars(); // Actualiza la lista de usuarios después de eliminar
+          this.mostrarSnackBar(response);
+          this.chargeCars();
         },
         error => {
           console.error('Error at deleting car:', error);
@@ -143,10 +100,11 @@ cartodelete: CarInterface | null = null;
     this.confirmacionEliminacionVisible = false; // Oculta el modal de confirmación después de eliminar
   }
 
-  /*confirmarEliminar(id: number | undefined): void {
-    this.deleteCar = id;
+  /*confirmarEliminar(carid: Carid): void {
+    this.deleteCar = carid;
     this.confirmacionEliminacionVisible = true;
   }*/
+
   cancelarEliminar(): void {
     this.confirmacionEliminacionVisible = false;
   }

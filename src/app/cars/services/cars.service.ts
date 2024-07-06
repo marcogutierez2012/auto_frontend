@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { CarInterface } from '../interfaces/car.interface';
+import { Carid } from '../interfaces/carid.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,7 @@ updateCar(car: CarInterface): Observable<any> {
     return this.http.put(`${this.baseUrl}/update`, car, { responseType: 'text' });
   }
 
-  deleteCar(id: number): Observable<string> {
-    return this.http.delete(`${this.baseUrl}/eliminar/${id}`, { responseType: 'text' });
+  deleteCar(carid: Carid): Observable<any> {
+    return this.http.post(`${this.baseUrl}/eliminar`, carid, { responseType: 'text' });
   }
 }

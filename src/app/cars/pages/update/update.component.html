@@ -1,58 +1,57 @@
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <form>
-                <div class="form-group mb-2">
-                    <label for="InputMarca">Marca</label>
-                    <input type="text" class="form-control" id="InputMarca" placeholder="Ingrese Modelo">
-                </div>
-                <div class="form-group mb-2">
-                    <label for="InputModelo">Modelo</label>
-                    <input type="text" class="form-control" id="InputModelo" placeholder="Ingrese Marca">
-                </div>
-                <div class="form-group mb-2">
-                    <label for="InputYear">Marca</label>
-                    <input type="date" class="form-control" id="InputYear">
-                </div>
-                <div class="form-group mb-2">
-                    <label for="InputPrecio">Precio</label>
-                    <input type="number" class="form-control" id="InputPrecio" placeholder="Ingrese Precio">
-                </div>
-                <div class="form-group mb-2">
-                    <label for="InputAsientos">Nro Asientos</label>
-                    <input type="number" class="form-control" id="InputAsientos" placeholder="Ingrese Nro de asientos">
-                </div>
-                <div class="form-group mb-2">
-                    <label for="InputColor">Color</label>
-                    <input type="text" class="form-control" id="InputColor" placeholder="Ingrese Color">
-                </div>
-                <div class="form-group mb-2">
-                    <label for="combustibleSelect">Tipo de Combustible</label>
-                    <select class="form-select" id="combustibleSelect">
-                        <option value="" disabled selected>Selecciona un Tipo de Combustible</option>
-                        <option value="Gasolina">Gasolina</option>
-                        <option value="Gas Natural">Gas Natural</option>
-                        <option value="Diesel">Diesel</option>
-                        <option value="Biodiesel">Biodiesel</option>
-                    </select>
-                </div>
-                <div class="form-group mb-2">
-                    <label for="transmisionSelect">Tipo de Transmision</label>
-                    <select class="form-select" id="transmisionSelect">
-                        <option value="" disabled selected>Selecciona un Tipo de Transmisión</option>
-                        <option value="Automático">Automático</option>
-                        <option value="Semi-Automático">Semi-Automático</option>
-                        <option value="Manual">Manual</option>
-                    </select>
-                </div>
-                <div class="form-group mb-2">
-                    <label for="InputPlaca">Placa</label>
-                    <input type="text" class="form-control" id="InputPlaca" placeholder="Ingrese Placa">
-                </div>
-                <div class="form-group mb-2">
-                    <button type="submit" class="btn btn-primary mb-2">Agregar</button>
-                </div>
-            </form>
+<div class="container" >
+    <h2 class="text-center">Actualizar Auto</h2>
+    <form (ngSubmit)="guardarCambios()" class="modal-form">
+      <div class="form-column">
+        <div class="form-row">
+          <label for="marca">Marca</label>
+          <input type="text" id="marca" name="marca" [(ngModel)]="data.car.brand" required>
         </div>
-    </div>
+        
+        <div class="form-row">
+          <label for="modelo">Modelo</label>
+          <input type="text" id="modelo" name="modelo" [(ngModel)]="data.car.model" required>
+        </div>
+        
+        <div class="form-row">
+          <label for="apellido">Año de Fabricacion</label>
+          <input type="date" id="apellido" name="apellido" [(ngModel)]="data.car.fabricationYear" required>
+        </div>
+        
+        <div class="form-row">
+          <label for="precio">Precio</label>
+          <input type="number" id="precio" name="precio" [(ngModel)]="data.car.price" required>
+        </div>
+      </div>
+    
+      <div class="form-column">
+        <div class="form-row">
+          <label for="asientos">Nro de Asientos</label>
+          <input type="number" id="asientos" name="asientos" [(ngModel)]="data.car.numberSeats" required>
+        </div>
+        
+        <div class="form-row">
+          <label for="color">Color</label>
+          <input type="text" id="color" name="color" [(ngModel)]="data.car.color" required>
+        </div>
+        
+        <div class="form-row">
+          <label for="combustible">Tipo de Combustible</label>
+          <input type="text" id="combustible" name="combustible" [(ngModel)]="data.car.fuelType" required>
+        </div>
+        
+        <div class="form-row">
+          <label for="transmision">Tipo de Transmisión</label>
+          <input type="text" id="transmision" name="transmision" [(ngModel)]="data.car.transmissionType" required>
+        </div>
+        
+        <div class="form-row">
+          <label for="placa">Placa</label>
+          <input type="text" id="placa" name="placa" [(ngModel)]="data.car.licensePlate" required>
+        </div>
+      </div>
+    
+      <div class="form-footer">
+        <button type="submit">Actualizar</button>
+      </div>
+    </form>
 </div>

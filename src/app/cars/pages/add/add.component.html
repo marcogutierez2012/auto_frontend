@@ -1,0 +1,40 @@
+<div class="container text-center">
+    <h2>Agregar Auto</h2>
+    <form (ngSubmit)="addCars()" class="two-column-form">
+      <div class="form-column">
+        <label for="brand">Marca</label>
+        <input type="text" id="brand" name="brand" [(ngModel)]="newCar.brand" required>
+  
+        <label for="modelo">Modelo</label>
+        <input type="text" id="modelo" name="modelo" [(ngModel)]="newCar.model" required>
+  
+        <label for="fabricacion">Año de Fabricación</label>
+        <input type="date" id="fabricacion" name="fabricacion" [(ngModel)]="newCar.fabricationYear" required>
+  
+        <label for="precio">Precio</label>
+        <input type="number" id="precio" name="precio" [(ngModel)]="newCar.price" required>
+
+        <label for="asientos">Nro de Asientos</label>
+        <input type="number" id="asientos" name="asientos" [(ngModel)]="newCar.numberSeats" required>
+        
+      </div>
+  
+      <div class="form-column">
+        <label for="color">Color</label>
+        <input type="text" id="color" name="color" [(ngModel)]="newCar.color" required>
+  
+        <label for="combustible">Tipo de Combustible</label>
+        <input type="text" id="combustible" name="combustible" [(ngModel)]="newCar.fuelType" required>
+  
+        <label for="transmision">Tipo de Transmisión</label>
+        <input type="text" id="transmision" name="transmision" [(ngModel)]="newCar.transmissionType" required>
+  
+        <label for="placa">Placa</label>
+        <input type="text" id="placa" name="placa" [(ngModel)]="newCar.licensePlate" required>
+      </div>
+
+      <div class="form-footer">
+        <button type="submit">Registrar</button>
+      </div>
+    </form>
+  </div>
